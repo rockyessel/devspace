@@ -22,7 +22,7 @@ export const accordionSideList = [
   },
   {
     name: 'Technical Writing',
-    slug: '/technical-writing',
+    slug: '/tw',
     list: [],
     icon: <BiSolidComponent />,
   },
@@ -34,7 +34,7 @@ export const accordionSideList = [
   },
   {
     name: 'Messages',
-    slug: '/dashboard/messages',
+    slug: '/dashboard/msg',
     list: [],
     icon: <BiSolidUser />,
   },
@@ -44,15 +44,15 @@ export const accordionSideList = [
     list: [
       {
         name: 'Packages Hub',
-        slug: '/dashboard/techubs/packages',
+        slug: '/dashboard/tb/packages',
       },
       {
         name: 'Frameworks Hub',
-        slug: '/dashboard/techubs/frameworks',
+        slug: '/dashboard/tb/frameworks',
       },
       {
         name: 'Database Hub',
-        slug: '/dashboard/techubs/database',
+        slug: '/dashboard/tb/database',
       },
     ],
     icon: <BiSolidUser />,
