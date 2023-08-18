@@ -22,7 +22,7 @@ export const accordionSideList = [
   },
   {
     name: 'Technical Writing',
-    slug: '/tw',
+    slug: '/dashboard/tw',
     list: [],
     icon: <BiSolidComponent />,
   },
