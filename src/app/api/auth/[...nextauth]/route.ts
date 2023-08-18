@@ -17,8 +17,8 @@ export const authOptions: NextAuthOptions = {
   jwt: {
     // Encoding function: Signs the token with specified data, secret, and expiration
     encode: ({ secret, token }) => {
-      console.log('jsonwebtoken', token);
-      console.log('jsonwebtoken secret', secret);
+      // console.log('jsonwebtoken', token);
+      // console.log('jsonwebtoken secret', secret);
 
       return jsonwebtoken.sign(
         {
@@ -32,8 +32,8 @@ export const authOptions: NextAuthOptions = {
 
     // Decoding function: Verifies the token's integrity and returns the decoded data
     decode: async ({ secret, token }) => {
-      console.log('decode secret', secret);
-      console.log('decode', token);
+      // console.log('decode secret', secret);
+      // console.log('decode', token);
       return jsonwebtoken.verify(token!, secret) as JWT;
     },
   },
@@ -42,8 +42,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     // JWT callback: Executed whenever a JSON Web Token is created or updated
     async jwt({ profile, token }) {
-      console.log('token: ', token);
-      console.log('profile: ', profile);
+      // console.log('token: ', token);
+      // console.log('profile: ', profile);
 
       if (profile && 'login' in profile) {
         token.username = profile.login

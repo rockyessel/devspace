@@ -12,3 +12,49 @@ export const SidebarList = [
   { name: 'Stories', slug: '/dashboard/stories', icon: <SiPowerpages /> },
   { name: 'Profile', slug: '/dashboard/profile', icon: <BiSolidUser /> },
 ];
+
+export const accordionSideList = [
+  {
+    name: 'Dashboard',
+    slug: '/dashboard',
+    list: [],
+    icon: <BiSolidDashboard />,
+  },
+  {
+    name: 'Technical Writing',
+    slug: '/technical-writing',
+    list: [],
+    icon: <BiSolidComponent />,
+  },
+  {
+    name: 'Broadcast',
+    slug: '/dashboard/broadcast',
+    list: [],
+    icon: <SiPowerpages />,
+  },
+  {
+    name: 'Messages',
+    slug: '/dashboard/messages',
+    list: [],
+    icon: <BiSolidUser />,
+  },
+  {
+    name: 'Techubs',
+    slug: '',
+    list: [
+      {
+        name: 'Packages Hub',
+        slug: '/dashboard/techubs/packages',
+      },
+      {
+        name: 'Frameworks Hub',
+        slug: '/dashboard/techubs/frameworks',
+      },
+      {
+        name: 'Database Hub',
+        slug: '/dashboard/techubs/database',
+      },
+    ],
+    icon: <BiSolidUser />,
+  },
+];
