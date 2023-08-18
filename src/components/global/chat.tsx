@@ -36,7 +36,7 @@ const Chat = () => {
     <div className='fixed bottom-0 right-0 flex items-end h-0 text-black'>
       <div
         style={styles}
-        className={`w-[400px] border-[1px] mr-10 relative flex flex-col bottom-0 transition duration-1000 ease-out shadow-md rounded-t-lg`}
+        className={`w-full md:w-[400px] border-[1px] mr-10 relative flex flex-col bottom-0 transition duration-1000 ease-out shadow-md rounded-t-lg`}
       >
         <div className='w-full border-b-[1px] flex items-center justify-between px-4 py-3.5 text-black'>
           <span className='font-bold'>{status}</span>

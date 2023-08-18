@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es6",
+    "lib": ["es2022"],
+    "module": "commonjs",
+    "rootDir": "src",
+    "sourceMap": true,
+    "typeRoots": ["./@types", "./node_modules/@types"],
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": "build",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
