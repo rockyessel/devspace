@@ -1,9 +1,9 @@
 import { NextAuthOptions } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
-import GoogleProvider from 'next-auth/providers/google';
 import jsonwebtoken from 'jsonwebtoken';
 import { JWT } from 'next-auth/jwt';
 import bcrypt from 'bcrypt';
+import NextAuth from 'next-auth/next';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -45,6 +45,10 @@ export const authOptions: NextAuthOptions = {
       console.log('token: ', token);
       console.log('profile: ', profile);
 
+      if (profile && 'login' in profile) {
+        token.username = profile.login
+      }
+
       return token;
     },
 
@@ -54,3 +58,8 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
+
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };

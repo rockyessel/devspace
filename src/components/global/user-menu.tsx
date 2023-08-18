@@ -9,7 +9,7 @@ import { userCardList } from '@/utils/constants/user-menu';
 const UserMenu = () => {
   const userDropdownRef = useRef<HTMLDivElement | null>(null);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const user = { ...session?.user } as any;
 
@@ -47,7 +47,7 @@ const UserMenu = () => {
         <span className='sr-only'>Open user menu</span>
         <Avatar
           name={user.name}
-          src={user.picture}
+          src={user.image}
           size='40'
           className='w-full h-full object-cover object-center'
           round={true}
@@ -87,7 +87,7 @@ const UserMenu = () => {
             ))}
           </ul>
           <ul className='py-1 font-light text-gray-500 '>
-            <li onClick={() => signOut()} className='block py-2 px-4 text-sm'>
+            <li onClick={() => signOut()} className='block py-2 px-4 text-sm cursor-pointer'>
               Sign out
             </li>
           </ul>

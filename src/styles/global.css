@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+.overwrite-sticky {
+  overflow-y: auto !important;
+}
