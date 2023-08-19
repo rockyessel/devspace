@@ -7,9 +7,6 @@ import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import * as Tabs from '@radix-ui/react-tabs';
 import EditorTools from './tools';
 
-
-
-
 interface TextEditorProps {
   setContent: React.Dispatch<React.SetStateAction<string>>;
   content: string;
@@ -25,7 +22,7 @@ const TextEditor = (props: TextEditorProps) => {
     <Tabs.Root className='' defaultValue='tab1'>
       <Tabs.List
         className='border-[1px] w-fit rounded-md p-2 inline-flex items-center gap-2'
-        aria-label='Manage your account'
+        aria-label='Switch between tabs'
       >
         <Tabs.Trigger className='button__default' value='tab1'>
           Write
@@ -36,7 +33,7 @@ const TextEditor = (props: TextEditorProps) => {
       </Tabs.List>
       <Tabs.Content className='mt-2' value='tab1'>
         <form>
-          <div className='w-full mb-4 border border-dark-color rounded-lg bg-gray-50'>
+          <div className='w-full mb-4 border border-[#393939] rounded-lg bg-gray-50'>
             <EditorTools
               setText={props.setContent}
               text={props.content}
@@ -49,7 +46,7 @@ const TextEditor = (props: TextEditorProps) => {
                 ref={textareaRef}
                 value={props.content}
                 onChange={handleChange}
-                className='resize-none h-40 outline-none bg-default-color text-dark-color block w-full px-0 text-sm text-gray-800 bg-white border-0 focus:ring-0'
+                className='resize-none h-40 outline-none bg-[#d9d9d9] text-[#393939] block w-full px-0 text-sm border-0 focus:ring-0'
                 placeholder='Write an article...'
                 required
               ></textarea>
