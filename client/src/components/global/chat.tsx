@@ -19,18 +19,11 @@ const Chat = () => {
     const newContent = event.currentTarget.innerText;
     setEditableContent(newContent);
   };
-  const styles = {
-    height: `${minimize}px`,
-  };
-  const handleSendClick = (): void => {
-    // Handle sending the message
-    console.log('Sending message:', editableContent);
-  };
-
-  const handleEmojiClick = (): void => {
-    // Handle opening emoji picker or adding emoji to contentEditable
-    console.log('Emoji button clicked');
-  };
+ const styles = {
+   height: `${minimize}px`,
+   transition: 'height 0.5s ease-in-out', 
+   transitionDelay: '0.2s', 
+ };
 
   return (
     <div className='fixed bottom-0 right-0 flex items-end h-0 text-black'>

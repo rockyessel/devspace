@@ -36,7 +36,7 @@ const ArticleCard = () => {
       <footer className='flex items-center justify-between'>
         <div className='flex items-end gap-2'>
           <div className='border-[1px] border-[#d9d9d9] rounded-full p-0.5'>
-            <img
+            <Image
               className='w-10 h-10 rounded-full'
               width={30}
               height={30}
