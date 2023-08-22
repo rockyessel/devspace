@@ -6,7 +6,7 @@ import { PiUsersThreeLight } from 'react-icons/pi';
 
 interface Props {}
 
-const ThreadDetails = () => {
+const PackageThreadDetails = () => {
   return (
     <section className='w-full py-5 px-10 flex flex-col gap-2'>
       <ul>
@@ -70,4 +70,4 @@ const ThreadDetails = () => {
   );
 };
 
-export default ThreadDetails;
+export default PackageThreadDetails;

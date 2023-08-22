@@ -12,16 +12,16 @@ export const ScrapeData = async (
   next: NextFunction
 ) => {
   try {
-    const { type, value } = request.body as { type: string; value: string };
+    const { language, name } = request.body as { language: string; name: string };
 
-    switch (type) {
+    switch (language) {
       case 'rust':
         try {
           const doesPackageExist = await Package.findOne({
-            package_name: value,
+            metaData: { package_name: name },
           });
 
-          if (doesPackageExist?.package_name === value) {
+          if (doesPackageExist?.metaData?.package_name === name) {
             response.status(409).json({
               error: 'Data already exists',
               message: 'The resource you are trying to create already exists.',
@@ -29,7 +29,7 @@ export const ScrapeData = async (
             });
             return;
           } else {
-            const result_rust = await crates_rpm(value);
+            const result_rust = await crates_rpm(name);
             request.data = result_rust;
           }
 
@@ -40,7 +40,7 @@ export const ScrapeData = async (
           });
         }
       case 'article':
-        const result_article = await scrape_art(value);
+        const result_article = await scrape_art(name);
         request.data = result_article;
         break; // Exit the switch block and continue to the next middleware
       default:

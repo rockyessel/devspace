@@ -13,8 +13,6 @@ const UserMenu = () => {
 
   const user = { ...session?.user } as any;
 
-  // console.log('user', user);
-
   const toggleUserDropdown = () => {
     setShowUserDropdown(!showUserDropdown);
   };

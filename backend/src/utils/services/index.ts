@@ -17,8 +17,8 @@ export const generateToken = async (method:string, user: any, clientRefreshToken
   switch (method) {
     case 'token':
       // "token" whenever the user either logins or register
-      const accessToken = jwt.sign({user_info:user}, `${process.env.ACCESS_TOKEN_SECRET}`, {expiresIn: `${process.env.ACCESS_TOKEN_EXPIRATION}`})
-      const refreshToken = jwt.sign({ user_info:user, jti: generateRefreshTokenId() }, `${process.env.ACCESS_TOKEN_SECRET}`, { expiresIn: `${process.env.REFRESH_ACCESS_TOKEN_EXPIRATION}` })
+      const accessToken = jwt.sign({...user}, `${process.env.ACCESS_TOKEN_SECRET}`, {expiresIn: `${process.env.ACCESS_TOKEN_EXPIRATION}`})
+      const refreshToken = jwt.sign({ ...user, jti: generateRefreshTokenId() }, `${process.env.ACCESS_TOKEN_SECRET}`, { expiresIn: `${process.env.REFRESH_ACCESS_TOKEN_EXPIRATION}` })
       return { msg: 'Generated successfully', token: { accessToken, refreshToken } };
      
       

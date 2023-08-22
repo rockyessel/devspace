@@ -19,11 +19,11 @@ const Chat = () => {
     const newContent = event.currentTarget.innerText;
     setEditableContent(newContent);
   };
- const styles = {
-   height: `${minimize}px`,
-   transition: 'height 0.5s ease-in-out', 
-   transitionDelay: '0.2s', 
- };
+  const styles = {
+    height: `${minimize}px`,
+    transition: 'height 0.5s ease-in-out',
+    transitionDelay: '0.2s',
+  };
 
   return (
     <div className='fixed bottom-0 right-0 flex items-end h-0 text-black'>

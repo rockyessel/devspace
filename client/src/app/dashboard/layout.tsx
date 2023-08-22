@@ -1,6 +1,5 @@
 import '@/styles/global.css';
 import Sidebar from '@/components/sidebar';
-
 import { LayoutRootProps } from '@/interface';
 import { NextAuthProvider } from '@/utils/providers/next-auth';
 import Navbar from '@/components/navbar';

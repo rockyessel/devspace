@@ -7,15 +7,14 @@ interface ErrorProps extends Error {
   message: string;
 }
 
-
 export const register = async (request: Request, response: Response) => {
   try {
-    const { username, email, password } = request.body;
+    const { username, email, password, image, name, _id } = request.body;
 
     console.log(request.body);
 
     // @desc Checking if any of the request.body is an empty string
-    if (!email || !username || !password || !request.body) {
+    if (!email || !username || !request.body) {
       response.status(400).json({ msg: 'Please add all fields' });
     }
 
@@ -28,15 +27,21 @@ export const register = async (request: Request, response: Response) => {
       response.status(400).json({ msg: 'User already exists' });
     }
 
+    let password_ = '';
     // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      password_ = await bcrypt.hash(password, salt);
+    }
 
     // @desc creating a new user
     const user = await User.create({
       username,
       email,
-      password: hashedPassword,
+      password: password_,
+      image,
+      name,
+      _id,
     });
 
     const userWitNoPassword = {
@@ -45,56 +50,47 @@ export const register = async (request: Request, response: Response) => {
       email: user.email,
       createdAt: user.createdAt,
       updateAt: user.updatedAt,
+      image: user.image,
+      name: user.name,
     };
-    
 
-    const tokenObj = await generateToken('token', userWitNoPassword);
-
-    if (tokenObj.error) {
-      const { error } = tokenObj;
-      return response.status(400).json({ error });
-    }
-
-    response.status(201).json(tokenObj);
+    response.status(201).json(userWitNoPassword);
   } catch (error) {
     const error_ = error as unknown as ErrorProps;
     response.status(500).json({ msg: error_.message });
   }
 };
 
-export const login = async (request: Request, response: Response) => {
-  const { email } = request.body;
+export const verify = async (request: Request, response: Response) => {
+  try {
+    const { email } = request.body;
 
-  if (!email) {
-    response.status(400);
-    throw new Error('Please add all fields');
-  }
-
-  const userExists = await User.findOne({ email }).select('-password');
-
-  if (userExists !== null) {
-    const userWitNoPassword = {
-      _id: userExists._id,
-      username: userExists.username,
-      email: userExists.email,
-      createdAt: userExists.createdAt,
-      updateAt: userExists.updatedAt,
-    };
-
-    const tokenObj = await generateToken('token', userWitNoPassword);
-
-    if (tokenObj.error) {
-      const { error } = tokenObj;
-      return response.status(400).json({ error });
+    if (!email) {
+      response.status(400);
+      throw new Error('Please add all fields');
     }
 
-    response.json(tokenObj);
+    const userExists = await User.findOne({ email }).select('-password');
+
+    if (userExists !== null) {
+      const userWitNoPassword = {
+        _id: userExists._id,
+        username: userExists.username,
+        email: userExists.email,
+        createdAt: userExists.createdAt,
+        updateAt: userExists.updatedAt,
+      };
+
+      response.json(userWitNoPassword);
+    }
+  } catch (error) {
+    const error_ = error as unknown as ErrorProps;
+    response.status(500).json({ msg: error_.message });
   }
 };
 
 export const refreshToken = async (request: Request, response: Response) => {
   const refreshTokenClient = request.body.refreshToken;
-
 
   console.log('refreshTokenClient', refreshTokenClient);
 
@@ -102,7 +98,11 @@ export const refreshToken = async (request: Request, response: Response) => {
     return response.sendStatus(401);
   }
 
-  const tokenObj = await generateToken('refresh', undefined, refreshTokenClient);
+  const tokenObj = await generateToken(
+    'refresh',
+    undefined,
+    refreshTokenClient
+  );
 
   if (tokenObj.error) {
     const { error } = tokenObj;
@@ -114,7 +114,6 @@ export const refreshToken = async (request: Request, response: Response) => {
 
 export const logout = async (request: Request, response: Response) => {
   const refreshTokenClient = request.body.refreshToken;
-
 
   console.log('refreshTokenClient', refreshTokenClient);
 
@@ -131,3 +130,42 @@ export const logout = async (request: Request, response: Response) => {
 
   return response.json(tokenObj);
 };
+
+export const getUserByField = async (request: Request, response: Response) => {
+  try {
+    console.log('Query: ', request.query);
+    const { _id, email, username } = request.query;
+
+    console.log('username', username);
+
+    let query: any = {};
+    if (_id) query._id = _id;
+    if (email) query.email = email;
+    if (username) query.username = username;
+
+    console.log('query: ', { ...query });
+    console.log('Objectquery: ', Object.keys(query));
+
+    if (Object.keys(query).length > 0) {
+      const userExists = await User.findOne({...query}).select('-password');
+
+      console.log('userExists', userExists);
+      return response
+        .status(200).json(userExists)
+    } else {
+      response
+        .status(400)
+        .json({ msg: 'Invalid request: No search parameters provided.' });
+    }
+  } catch (error) {
+    const error_ = error as unknown as ErrorProps;
+    response.status(500).json({ msg: error_.message });
+  }
+};
+
+// what?
+// a space for developers all in one place
+
+// a place for every developers to chat in realtime, and collaborate, and help each other
+
+// any developer that sign-up for a wait-list

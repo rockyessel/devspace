@@ -1,12 +1,19 @@
 import express from 'express';
-import { register, login, refreshToken, logout } from '../controllers/users';
+import {
+  register,
+  verify,
+  refreshToken,
+  logout,
+  getUserByField,
+} from '../controllers/users';
 
 const router = express.Router();
 
 // login route
 router.post('/', register);
-router.post('/login', login);
+router.post('/verify', verify);
 router.post('/logout', logout);
 router.post('/refresh', refreshToken);
+router.get('/field', getUserByField)
 
 export = router;

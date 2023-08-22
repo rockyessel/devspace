@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { SiDpd } from 'react-icons/si';
 
-interface Props {}
-
 const Logo = () => {
   return (
     <Link href='/' className='flex items-center mr-4'>

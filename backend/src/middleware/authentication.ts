@@ -13,16 +13,16 @@ declare global {
 export const Protection = async (request: Request, response: Response, next: () => void) => {
   try {
     let token;
-    if (request.headers.authorization && request.headers.authorization.startsWith('Bearer')) {
-      // console.log('request.headers.authorization: ',request.headers.authorization);
+    if (request.cookies && request.cookies['next-auth.session-token']) {
       try {
-        token = request.headers.authorization.split(' ')[1];
+        token = request.cookies['next-auth.session-token'];
         const verifyToken = jwt.verify(token, `${process.env.ACCESS_TOKEN_SECRET}`) ;
-        // console.log('verifyToken',verifyToken)
+        console.log('verifyToken',verifyToken)
         if (verifyToken && typeof verifyToken !== 'string') {
-          const foundUser = await User.findOne({ _id: verifyToken?.user_info?._id }).select('-password');
-          request.user = foundUser !== null ? foundUser : undefined;
-          // console.log('foundUser',foundUser);
+          const foundUser = await User.findOne({ email: verifyToken?.email }).select('-password');
+          console.log('User', foundUser)
+          if (foundUser) request.user = foundUser
+          else return response.status(404).json({error: "Token was verified but user was not found."})
         }
         next();
       } catch (error) {

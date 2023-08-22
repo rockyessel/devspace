@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 interface Props {}
 
-const overview = () => {
-  return <div></div>
-}
+const PackageOverview = () => {
+  return <div>PackageOverview</div>;
+};
 
-export default overview
+export default PackageOverview;

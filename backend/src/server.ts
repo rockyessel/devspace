@@ -27,11 +27,10 @@ dotenv.config({ path: '.env' });
 // Create an express instance
 const app: Express.Application = Express();
 
-
 // Websocket Server
 // Create an instance of the HTTP server and store it in the 'server' variable
 const server = http.createServer(app);
-WebSocketServerConnection(server)
+WebSocketServerConnection(server);
 
 // Create the Redis client and connect to the Redis server
 

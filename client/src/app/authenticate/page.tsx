@@ -5,21 +5,14 @@ import { signIn, useSession } from 'next-auth/react';
 import { SiDpd } from 'react-icons/si';
 import { useRouter } from 'next/navigation';
 
-interface Props {}
-
 const Authenticate = () => {
   const router = useRouter();
-
-
-
-    
   const { status } = useSession();
   React.useEffect(() => {
     if (status === 'authenticated') {
       router.push('/dashboard');
     }
   }, [router, status]);
-
 
   return (
     <div>

@@ -1,5 +1,5 @@
-import React from 'react'
-import Chat from '@/components/global/chat'
+import React from 'react';
+import Chat from '@/components/global/chat';
 
 const DashboardMain = () => {
   return (
@@ -8,6 +8,6 @@ const DashboardMain = () => {
       <Chat />
     </div>
   );
-}
+};
 
-export default DashboardMain
+export default DashboardMain;

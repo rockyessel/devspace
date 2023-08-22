@@ -45,7 +45,7 @@ try {
                 const user_url = owners?.querySelector('a')?.getAttribute('href');
                 return { name, profile, user_url };
               });
-              const package_obj = { keywords, package_name, time_uploaded, license, version, description, links, total_downloads, owners}
+              const package_obj = { keywords, package_name, time_uploaded, license, version, description, links, total_downloads, owners, language: 'Rust'}
               return package_obj
             });
           });
