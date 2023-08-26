@@ -1,12 +1,14 @@
+import { Package } from '@/interface';
 import axios from 'axios';
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL!;
 
-export const importPackage = async (packageForm: any) => {
-  const { data } = await axios.post(`${baseURL}/v1/api/packages`, {
-    language: 'rust',
-    name: 'quote',
-  },{withCredentials:true});
+export const importPackage = async (language: string, name: string) => {
+  const { data } = await axios.post(
+    `${baseURL}/v1/api/packages`,
+    {language,name},
+    { withCredentials: true }
+  );
 
   return data;
 };
@@ -27,12 +29,12 @@ interface FieldProps {
 }
 
 export const fetchUserByField = async (field: FieldProps) => {
-  console.log('field: ', {...field});
+  console.log('field: ', { ...field });
+  const email = field.email === undefined ? '' : field.email
+  const username = field.username === undefined ? '' : field.username
+  const _id = field._id === undefined ? '' : field._id
   try {
-    const response = await axios.get(`${baseURL}/v1/api/users/field?email=${field.email}&username=${field.username}&_id=${field._id}`);
-    console.log('response', response);
-    const data = response.data;
-    console.log('data', data);
+    const {data} = await axios.get(`${baseURL}/v1/api/users/field?email=${email}&username=${username}&_id=${_id}`);
     return data;
   } catch (error) {
     console.log(error);
@@ -47,7 +49,19 @@ export const authUser = async (formData: any) => {
 };
 
 
-export const getPackageByName = async (name:string, language:string) => {
-  const { data } = await axios.get(`${baseURL}/v1/packages/${language}/${name}`);
+export const getPackageByName = async (language:string, name:string):Promise<Package> => {
+  const { data } = await axios.get(`${baseURL}/v1/api/packages/${language}/${name}`);
+  return data
+}
+
+
+interface PkgProps {
+  allPackages: Package[] | [],
+  length:number
+}
+
+
+export const getAllPackages = async (pageNumber:number):Promise<PkgProps> => {
+  const { data } = await axios.get(`${baseURL}/v1/api/packages?page=${pageNumber}`);
   return data
 }

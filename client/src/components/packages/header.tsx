@@ -9,30 +9,41 @@ import { MdSpatialTracking } from 'react-icons/md';
 import { RiUserStarFill } from 'react-icons/ri';
 
 import Image from 'next/image';
+import { MetaData } from '@/interface';
 
-interface Props {}
+interface Props {
+  data: MetaData;
+}
 
-const PackageHeader = () => {
+// #seriliazation #json #serde #syn #dyn
+
+const PackageHeader = (props: Props) => {
   return (
     <section className='bg-[#393939] text-[#d9d9d9] h-96 flex justify-start items-end'>
       <div className='w-full pb-10 px-10 flex items-center justify-between'>
         <div className='flex flex-col gap-10'>
           <div>
             <div className='font-cascadia flex flex-col'>
-              <span>#seriliazation #json #serde #syn #dyn</span>
+              <span>
+                <ul className='inline-flex items-center gap-1'>
+                  {props.data.keywords?.map((keyword, index) => (
+                    <li key={index}>{keyword}</li>
+                  ))}
+                </ul>
+              </span>
               <div className='flex items-end gap-2'>
-                <h1 className='text-7xl'>serde</h1>
-                <span className='text-4xl'>v1.2.3</span>
+                <h1 className='text-7xl'>{props.data.packageName}</h1>
+                <span className='text-4xl'>{props.data.version}</span>
               </div>
             </div>
             <p className='font-thin text-lg max-w-2xl'>
-              A generic serialization/deserialization framework.
+              {props.data.description}
             </p>
 
             <div className='font-thin flex items-center gap-5 mt-2'>
               <p>
                 <span>Language:</span>{' '}
-                <span className='font-bold text-sm'>Rust</span>
+                <span className='font-bold text-sm'>{props.data.language}</span>
               </p>
               <p>
                 <span>Released on:</span>{' '}
@@ -56,7 +67,7 @@ const PackageHeader = () => {
         <div className='flex flex-col gap-10'>
           <div>
             <pre className='flex items-center gap-1 border-[1px] p-[1px] justify-between w-[20rem] text-xl bg-[#d9d9d9] text-[#393939] rounded-md px-2.5 py-1.5'>
-              <code>cargo add serde</code>
+              <code>cargo add {props.data.packageName}</code>
               <button
                 className='bg-[#393939] text-[#d9d9d9] py-1.5 px-2.5 rounded-md'
                 title='Search'
@@ -96,34 +107,16 @@ const PackageHeader = () => {
             <div>
               <p className='font-thin'>Owners & Contributors</p>
               <div className='flex mb-5 -space-x-4'>
-                <Image
-                  className='w-10 h-10 border-2 border-white rounded-full'
-                  src='https://flowbite.com/docs/images/people/profile-picture-5.jpg'
-                  alt=''
-                  width={30}
-                  height={30}
-                />
-                <Image
-                  className='w-10 h-10 border-2 border-white rounded-full'
-                  src='https://flowbite.com/docs/images/people/profile-picture-2.jpg'
-                  alt=''
-                  width={30}
-                  height={30}
-                />
-                <Image
-                  className='w-10 h-10 border-2 border-white rounded-full'
-                  src='https://flowbite.com/docs/images/people/profile-picture-3.jpg'
-                  alt=''
-                  width={30}
-                  height={30}
-                />
-                <Image
-                  className='w-10 h-10 border-2 border-white rounded-full'
-                  src='https://flowbite.com/docs/images/people/profile-picture-4.jpg'
-                  alt=''
-                  width={30}
-                  height={30}
-                />
+                {props?.data.owners.map((owner, index) => (
+                  <Image
+                    key={index}
+                    className='w-10 h-10 border-2 border-white rounded-full'
+                    src={owner.profile}
+                    alt={owner.name}
+                    width={30}
+                    height={30}
+                  />
+                ))}
               </div>
             </div>
           </div>

@@ -133,25 +133,28 @@ export const logout = async (request: Request, response: Response) => {
 
 export const getUserByField = async (request: Request, response: Response) => {
   try {
-    console.log('Query: ', request.query);
     const { _id, email, username } = request.query;
-
-    console.log('username', username);
-
     let query: any = {};
-    if (_id) query._id = _id;
-    if (email) query.email = email;
-    if (username) query.username = username;
+    if (_id !== '') {
+      query._id = _id;
+    }
 
-    console.log('query: ', { ...query });
-    console.log('Objectquery: ', Object.keys(query));
+    if (email !== '') {
+      query.email = email;
+    }
+
+    if (username !== '') {
+      query.username = username;
+    }
 
     if (Object.keys(query).length > 0) {
-      const userExists = await User.findOne({...query}).select('-password');
-
-      console.log('userExists', userExists);
-      return response
-        .status(200).json(userExists)
+      console.log('Inside: ', query);
+      const userExists = await User.findOne({ ...query }).select('-password');
+      if (userExists) {
+        return response.status(200).json(userExists);
+      } else {
+        return response.status(404).json({ msg: 'User not found.' });
+      }
     } else {
       response
         .status(400)

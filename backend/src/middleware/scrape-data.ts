@@ -21,7 +21,7 @@ export const ScrapeData = async (
             metaData: { package_name: name },
           });
 
-          if (doesPackageExist?.metaData?.package_name === name) {
+          if (doesPackageExist?.metaData?.packageName === name) {
             response.status(409).json({
               error: 'Data already exists',
               message: 'The resource you are trying to create already exists.',

@@ -22,9 +22,9 @@ const Navbar = () => {
         <ul className='flex items-center gap-2'>
           {NavbarData.map((list, index) => (
             <Link key={index} href={`/${list.name.toLowerCase()}`}>
-              <li className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 font-medium cursor-pointer'>
+              {/* <li className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 font-medium cursor-pointer'>
                 {list.name}
-              </li>
+              </li> */}
             </Link>
           ))}
         </ul>
@@ -34,7 +34,7 @@ const Navbar = () => {
         <ul className='flex items-center lg:order-2'>
           {status === 'authenticated' ? (
             <>
-              <Link href={`/dashboard`}>
+              <Link className='hidden sm:block' href={`/dashboard`}>
                 <li className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 font-medium cursor-pointer'>
                   Dashboard
                 </li>

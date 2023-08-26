@@ -71,13 +71,9 @@ export const authOptions: AuthOptions = {
     // JWT callback: Executed whenever a JWT is created or updated
     async jwt({ profile, token }) {
       if (token && profile) {
-        console.log('profile', profile);
-        console.log('token', token);
-
         // Find user by email from GraphQL API
-        const user = await fetchUserByField({ email: token.email! });
-        console.log('user', user);
 
+        const user = await fetchUserByField({ email: token.email! });
         if (!user) {
           // Create a custom user using token data
           let customUser = {
@@ -87,37 +83,33 @@ export const authOptions: AuthOptions = {
             email: token.email,
             image: token.picture,
           };
-
           // If GitHub profile information is available, use it
           if ('login' in profile) {
             token.username = profile.login!;
             customUser.username = profile.login as string;
           }
-
           // Create the user and get the user's ID
           await createUserWithProvider(customUser);
         }
+        // If GitHub profile information is available, use it
+        if ('login' in profile) {
+          token.username = profile.login!;
+        }
       }
-
-      console.log('token end', token);
       return token;
     },
 
     // Session callback: Populate session data based on JWT information
     async session({ session, token }) {
-      console.log('token', token);
-      // Find user by email from GraphQL API
-      const user = await fetchUserByField({ email: token.email! });
-      if (user) {
-        const customUser = {
-          username: token.username as string | null | undefined,
-          name: token.name,
-          email: token.email,
-          image: token.picture,
-          id: user._id,
-        };
-        session.user = customUser; // Set custom user data in the session
-      }
+      const customUser = {
+        username: token.username,
+        name: token.name,
+        email: token.email,
+        image: token.picture,
+        id: token.sub,
+      };
+      session.user = customUser; // Set custom user data in the session
+
       return session;
     },
   },

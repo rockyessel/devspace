@@ -18,7 +18,7 @@ console.log('Data: ', data)
   console.log('Params: ',props.params);
   return (
     <main className='w-full'>
-      <PackageHeader />
+      <PackageHeader data={data.metaData} />
       <PackageTabs />
     </main>
   );

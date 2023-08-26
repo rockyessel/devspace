@@ -7,7 +7,7 @@ export const add_package = async (request: CustomRequest, response: Response) =>
     const user = request.user;
     const PackageData = await Package.create({
       metaData: { ...request.data },
-      addedBy_userId: user?._id,
+      addedByUserId: user?._id,
     });
     console.log('PackageData: ', PackageData);
     if (PackageData) {
@@ -18,17 +18,30 @@ export const add_package = async (request: CustomRequest, response: Response) =>
     response.status(500).json(error);
   }
 };
-export const getAllPackages = async (request: CustomRequest, response: Response) => {};
+export const getAllPackages = async (request: CustomRequest, response: Response) => {
+  try {
+    const page = parseInt(request.query?.page as string) || 1; // Get the requested page number from query parameter
+    const perPage = 7; // Number of packages per page
 
+    const skip = (page - 1) * perPage; // Calculate how many packages to skip
 
+    const allPackages = await Package.find({}).skip(skip).limit(perPage); // Query with skip and limit
+    const packageLength = (await Package.find({})).length;
 
+    return response.status(200).json({allPackages, length:packageLength});
+  } catch (error) {
+    console.log(error);
+    return response.status(500).json({ error: "Server error" });
+  }
+};
 
 
 
 export const getPackage = async (request: CustomRequest, response: Response) => {
+  console.log('Params: ',request.params)
   try {
     const { language, name } = request.params;
-    const findPackage = await Package.findOne({ 'metaData.package_name': name });
+    const findPackage = await Package.findOne({ 'metaData.packageName': name });
 
     if (findPackage) {
       return response.status(200).json(findPackage);
