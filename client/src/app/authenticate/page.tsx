@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub, FaGoogle, FaTwitter } from 'react-icons/fa';
 import { signIn, useSession } from 'next-auth/react';
 import { SiDpd } from 'react-icons/si';
 import { useRouter } from 'next/navigation';
@@ -37,6 +37,26 @@ const Authenticate = () => {
                       <FaGithub className='w-6' />
                     </div>
                     <span className='ml-4'>Authenticate with GitHub</span>
+                  </button>
+                  <button
+                    title='Authenticate with GitHub'
+                    onClick={() => signIn('google')}
+                    className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5'
+                  >
+                    <div className='bg-white p-1 rounded-full'>
+                      <FaGoogle className='w-6' />
+                    </div>
+                    <span className='ml-4'>Authenticate with Google</span>
+                  </button>
+                  <button
+                    title='Authenticate with GitHub'
+                    onClick={() => signIn('twitter')}
+                    className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5'
+                  >
+                    <div className='bg-white p-1 rounded-full'>
+                      <FaTwitter className='w-6' />
+                    </div>
+                    <span className='ml-4'>Authenticate with Twitter</span>
                   </button>
                 </div>
 
