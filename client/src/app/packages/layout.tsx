@@ -3,6 +3,7 @@ import '@/styles/global.css';
 import { LayoutRootProps } from '@/interface';
 import type { Metadata } from 'next';
 import { NextAuthProvider } from '@/utils/providers/next-auth';
+import Chat from '@/components/global/chat';
 
 export const metadata: Metadata = {
   title: 'Devspace | Packages',
@@ -16,6 +17,7 @@ export default function RootLayout(props: LayoutRootProps) {
         <body>
           <Navbar />
           <main>{props.children}</main>
+          <Chat />
         </body>
       </NextAuthProvider>
     </html>

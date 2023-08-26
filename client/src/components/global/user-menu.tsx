@@ -1,17 +1,17 @@
 'use client';
-
 import React, { useState, useEffect, useRef } from 'react';
 import Avatar from 'react-avatar';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { userCardList } from '@/utils/constants/user-menu';
+import { User } from '@/interface';
 
 const UserMenu = () => {
   const userDropdownRef = useRef<HTMLDivElement | null>(null);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const { data: session } = useSession();
 
-  const user = { ...session?.user } as any;
+  const user = { ...session?.user } as User;
 
   const toggleUserDropdown = () => {
     setShowUserDropdown(!showUserDropdown);
@@ -85,7 +85,10 @@ const UserMenu = () => {
             ))}
           </ul>
           <ul className='py-1 font-light text-gray-500 '>
-            <li onClick={() => signOut()} className='block py-2 px-4 text-sm cursor-pointer'>
+            <li
+              onClick={() => signOut()}
+              className='block py-2 px-4 text-sm cursor-pointer'
+            >
               Sign out
             </li>
           </ul>

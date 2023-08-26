@@ -1,4 +1,4 @@
-import { Package } from '@/interface';
+import { Package, User } from '@/interface';
 import axios from 'axios';
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL!;
@@ -44,7 +44,6 @@ export const fetchUserByField = async (field: FieldProps) => {
 
 export const authUser = async (formData: any) => {
   const { data } = await axios.post(`${baseURL}/v1/api/users/verify`);
-
   return data;
 };
 
@@ -58,6 +57,12 @@ export const getPackageByName = async (language:string, name:string):Promise<Pac
 interface PkgProps {
   allPackages: Package[] | [],
   length:number
+}
+
+export const getPackageChatHistory = async (pageId: string) => {
+  const { data } = await axios.get(`${baseURL}/v1/api/packages/chat?pageId=${pageId}`);
+  return data
+  
 }
 
 

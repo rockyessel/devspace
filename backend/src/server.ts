@@ -15,7 +15,7 @@ import BroadcastRoute from './routes/broadcast';
 // import WebSocketService from './utils/services/web-socket';
 // import configureWebSocketRoutes from './routes/web-socket';
 import { ErrorHandler } from './middleware/error';
-import { WebSocketServerConnection } from './web-socket';
+import { WebSocketServerConnection } from './web/sockets';
 
 // Set port
 const PORT = process.env.PORT || 6556;

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const BroadcastSchema = new mongoose.Schema(
   {
-    room_id: { type: String, require: true },
+    roomId: { type: String, require: true },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     code: { type: String, require: true },
     title: { type: String, require: false },
@@ -25,7 +25,7 @@ const BroadcastSchema = new mongoose.Schema(
         message: () => 'Duplicate participant IDs are not allowed.',
       },
     },
-    chat: [{ user_id: String, message: String, timestamp: Date }],
+    chat: [{ userId: String, message: String, timestamp: Date }],
   },
   { timestamps: true }
 );

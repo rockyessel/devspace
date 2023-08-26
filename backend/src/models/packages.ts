@@ -18,7 +18,8 @@ const PackageSchema = new mongoose.Schema(
       packageManager: { type: String, required: true },
     },
     // body: { type: String, required: false },
-    claimedStatus: { type: String, required: false,default: 'Unclaimed' },
+    type:String,
+    claimedStatus: { type: String, required: false, default: 'Unclaimed' },
     addedByUserId: { type: String, ref: 'User' },
     main_owners: [{ type: String, ref: 'User' }],
     trackers: [{ type: String, ref: 'User' }],
@@ -26,9 +27,12 @@ const PackageSchema = new mongoose.Schema(
     articles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }],
     threads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Thread' }],
     projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
-    announcements: [
-      { type: mongoose.Schema.Types.ObjectId, ref: 'Announcement' },
-    ],
+    announcements: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Announcement' }],
+    pageId: {type:String, default: ''},
+    realtime: {
+    chat: [{ userId: String, message: String, timestamp: Date }],
+    participants: [{ type: String, required: true,timestamp: Date.now  }],
+    }
   },
   { timestamps: true }
 );

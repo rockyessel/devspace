@@ -3,6 +3,7 @@ import Sidebar from '@/components/sidebar';
 import { LayoutRootProps } from '@/interface';
 import { NextAuthProvider } from '@/utils/providers/next-auth';
 import Navbar from '@/components/navbar';
+import Chat from '@/components/global/chat';
 
 export const metadata = {
   title: 'Next.js',
@@ -21,6 +22,7 @@ export default function RootLayout(props: LayoutRootProps) {
               {props.children}
             </main>
           </section>
+          <Chat />
         </body>
       </NextAuthProvider>
     </html>
